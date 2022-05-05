@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+    background-color: aliceblue;
+}
+
+.grid-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    border: 1px solid black;
+}
+
+.grid-box {
+    border: 1px solid gray;
+    width: 100px;
+    height: 100px;
+}
