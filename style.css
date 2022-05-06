@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nanum+Gothic&display=block');
 * {
     margin: 0;
 }
@@ -6,6 +7,7 @@
     height: 100vh;
     width: 100vw;
     background-color: aliceblue;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .grid-wrapper {
@@ -25,4 +27,65 @@
     border: 1px solid gray;
     width: 100px;
     height: 100px;
+}
+
+.modal {
+    position: absolute;
+    background-color: #00000080;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+}
+
+.modal-container {
+    font-family: sans-serif;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 300px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-wrapper {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 25px;
+}
+
+h1,
+h2 {
+    font-family: 'Bangers', cursive;
+    text-align: center;
+}
+
+.grouping {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.grouping input[type="text"] {
+    width: 200px;
+}
+
+.submit {
+    width: 100%;
+    display: flex;
+    flex-basis: 20%;
+}
+
+.submit input {
+    width: 100%;
+    background-color: lightskyblue;
+    font-family: 'Bangers', cursive;
+    border-style: none;
+    font-size: 24px;
 }

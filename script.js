@@ -14,16 +14,28 @@ const gameBoard = (() => {
 })();
 
 const gameController = (() => {
-    let next = null;
+    let turn = null;
     const round = 0;
     const addRound = () => round++;
-    const setNext = (player) => { next = player };
-    return { addRound, setNext };
+    const setNext = (player) => { turn = player };
+    const getTurn = () => { return turn };
+    return { addRound, setNext, getTurn };
 })
 
 const Player = (name, mark) => {
     const playerMark = mark;
-    const getName = () => { return name };
+    const playerName = name;
+    const getName = () => { return playerName };
     const getPlayerMark = () => { return playerMark };
     return { getName, getPlayerMark };
 }
+
+let username;
+let player;
+let opponent;
+
+document.addEventListener('DOMContentLoaded', function() {
+    //username = prompt("WHAT YOUR NAME");
+    player = Player(username, "X");
+    opponent = Player("Opponent", "O");
+}, false);

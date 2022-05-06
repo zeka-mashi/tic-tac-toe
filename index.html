@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="style.css" rel="stylesheet">
     <title>Document</title>
 </head>
@@ -24,6 +26,32 @@
                 <div class="grid-box">O</div>
                 <div class="grid-box">O</div>
             </div>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal-container">
+            <form class="modal-wrapper" id="selectionForm">
+                <div>
+                    <h2>You've been challenged to</h2>
+                    <h1>Tic-Tac-Toe!</h1>
+                </div>
+                <div class="grouping">
+                    <label for="player.name">Your Name: </label>
+                    <input type="text" id="player.name" minlength="3" maxlength="20" required title="Enter your name!">
+                </div>
+                <div class="grouping">
+                    <label>Choose your mark:</label>
+                    <div>
+                        <input type="radio" id="player.mark.x" name="player.mark" checked>
+                        <label for="player.mark.x">X</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="player.mark.o" name="player.mark">
+                        <label for="player.mark.o">O</label>
+                    </div>
+                </div>
+            </form>
+            <div class="submit"><input type="submit" form="selectionForm" value="I'm Ready"></div>
         </div>
     </div>
 </body>
