@@ -5,31 +5,70 @@ const gameBoard = (() => {
     const add = (mark, idx) => {
         let grid = document.querySelectorAll(`[data-idx="${idx}"]`)[0];
         grid.textContent = mark;
-        if (board[idx] == null) {
+        if (!board[idx]) {
             board.splice(idx, 1, mark);
-            gameController.nextTurn();
-        } else {}
-        console.log(gameBoard.getBoard())
+            if (gameController.shouldContinueGame()) {
+                gameController.nextTurn();
+            }
+        }
     };
     return { add, getBoard, clearBoard };
 })();
 
 const gameController = (() => {
     let turn = null;
+    let round = 0;
     const setName = () => {
-        let span = document.getElementById("turn");
+        const span = document.getElementById("turn");
         span.textContent = turn.getName();
     }
     const nextTurn = () => {
         turn = turn == player ? opponent : player;
         setName();
+        round++;
     }
     const setTurn = (player) => {
         turn = player;
         setName();
+        round++;
     };
     const getTurn = () => { return turn };
-    return { nextTurn, setTurn, getTurn };
+    const checkLine = (arr) => {
+        let countX = 0;
+        let countO = 0;
+        arr.forEach(grid => { if (grid == "X") { countX++ } else if (grid == "O") { countO++ } });
+        console.log(countX, countO)
+        if (countX == 3 || countO == 3) {
+            return true;
+        }
+        return false;
+    }
+    const shouldContinueGame = () => {
+        let board = gameBoard.getBoard();
+        if (round > 4) {
+            if (checkLine([board[0], board[1], board[2]]) ||
+                checkLine([board[3], board[4], board[5]]) ||
+                checkLine([board[6], board[7], board[8]]) ||
+                checkLine([board[0], board[4], board[8]]) ||
+                checkLine([board[2], board[4], board[6]]) ||
+                checkLine([board[0], board[3], board[6]]) ||
+                checkLine([board[1], board[4], board[7]]) ||
+                checkLine([board[2], board[5], board[8]])) {
+                turn = null;
+                const label = document.getElementsByClassName("turn-label")[0];
+                label.classList.toggle("hide");
+                return false;
+            }
+        }
+        if (round == 9) {
+            turn = null;
+            const label = document.getElementsByClassName("turn-label")[0];
+            label.classList.toggle("hide");
+            return false;
+        }
+        return true;
+    }
+    return { nextTurn, setTurn, getTurn, shouldContinueGame };
 })();
 
 const Player = (name, mark) => {
