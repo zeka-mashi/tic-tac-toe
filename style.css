@@ -8,13 +8,20 @@
     width: 100vw;
     background-color: aliceblue;
     font-family: 'Nanum Gothic', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.turn-label {
+    margin-top: 5%;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .grid-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    flex: 1;
 }
 
 .grid {
@@ -25,8 +32,21 @@
 
 .grid-box {
     border: 1px solid gray;
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
+    font-size: 75px;
+    text-align: center;
+    align-items: center;
+    display: inherit;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.hide {
+    visibility: hidden;
 }
 
 .modal {
@@ -50,6 +70,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow: hidden;
 }
 
 .modal-wrapper {
@@ -88,4 +109,30 @@ h2 {
     font-family: 'Bangers', cursive;
     border-style: none;
     font-size: 24px;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background-color: gray;
+    color: white;
+}
+
+small {
+    display: flex;
+}
+
+small span {
+    margin: auto;
+    font-weight: bold;
+}
+
+.github {
+    color: black;
+}
+
+.website {
+    color: white;
 }
