@@ -44,7 +44,7 @@
         </footer>
     </div>
     <div class="modal">
-        <div class="modal-container">
+        <div class="challenge modal-container">
             <form class="modal-wrapper" id="selectionForm">
                 <div>
                     <h2>You've been challenged to</h2>
@@ -67,6 +67,12 @@
                 </div>
             </form>
             <div class="submit"><input type="submit" form="selectionForm" id="submit" value="I'm Ready"></div>
+        </div>
+    </div>
+    <div class="end-modal hide">
+        <div class="end modal-container">
+            <div><span id="result">YOU LOST????</span><br><span id="result-subtext">Better luck enxt time</span></div>
+            <input type="button" id="reset" value="Play Another">
         </div>
     </div>
 </body>

@@ -20,39 +20,14 @@ body {
     flex-direction: column;
 }
 
-.turn-label,
-.result-label {
+.turn-label {
     margin-top: 5%;
     font-family: 'Nanum Gothic', sans-serif !important;
-}
-
-.result-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
 }
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
     cursor: pointer;
-}
-
-.result-label input {
-    border-style: none;
-    background-color: cornflowerblue;
-    color: white;
-    font-weight: bold;
-    padding: 5px;
-}
-
-.result-label input:hover {
-    background-color: #749ee8;
-}
-
-.result {
-    font-size: 24px;
-    font-weight: bold;
 }
 
 .grid-wrapper {
@@ -77,6 +52,11 @@ input[type="submit"]:hover {
     align-items: center;
     display: inherit;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.taken {
+    cursor: not-allowed;
 }
 
 .hidden {
@@ -87,7 +67,8 @@ input[type="submit"]:hover {
     visibility: hidden;
 }
 
-.modal {
+.modal,
+.end-modal {
     position: absolute;
     background-color: #00000080;
     height: 100vh;
@@ -95,20 +76,48 @@ input[type="submit"]:hover {
     top: 0;
 }
 
+.end-modal {
+    background-color: #000000c0;
+    opacity: 0;
+}
+
+.end-modal:not(.hide) {
+    opacity: 1;
+    transition: opacity 1s;
+}
+
 .modal-container {
     font-family: sans-serif;
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
-    border: 1px solid black;
-    border-radius: 5px;
     height: 300px;
     width: 500px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
+}
+
+.challenge {
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.end {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 36px;
+    color: white;
+    text-shadow: 1px 1px 20px black, -1px -1px 20px black;
+    gap: 25%;
+    align-items: center;
+}
+
+#result-subtext {
+    font-size: 22px;
 }
 
 .modal-wrapper {
@@ -151,6 +160,20 @@ h2 {
 
 .submit input:hover {
     background-color: lightskyblue;
+}
+
+.end input {
+    border-style: none;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px;
+    width: 50%;
+}
+
+.end input:hover {
+    background-color: #749ee8;
 }
 
 footer {

@@ -4,6 +4,7 @@ const gameBoard = (() => {
     const clearBoard = () => { board = Array(9).fill(null) }
     const add = (mark, idx) => {
         let grid = document.querySelectorAll(`[data-idx="${idx}"]`)[0];
+        grid.classList.add("taken");
         grid.textContent = mark;
         if (!board[idx]) {
             board.splice(idx, 1, mark);
@@ -20,7 +21,7 @@ const gameController = (() => {
     let round = 0;
     const setName = () => {
         const span = document.getElementById("turn");
-        span.textContent = turn.getName();
+        span.textContent = turn.getPlayerName();
     }
     const nextTurn = () => {
         turn = turn == player ? opponent : player;
@@ -43,6 +44,12 @@ const gameController = (() => {
         }
         return false;
     }
+    const stopGame = () => {
+        turn = null;
+        const label = document.getElementsByClassName("turn-label")[0];
+        label.classList.toggle("hide");
+        return false;
+    }
     const shouldContinueGame = () => {
         let board = gameBoard.getBoard();
         if (round > 4) {
@@ -54,29 +61,45 @@ const gameController = (() => {
                 checkLine([board[0], board[3], board[6]]) ||
                 checkLine([board[1], board[4], board[7]]) ||
                 checkLine([board[2], board[5], board[8]])) {
-                turn = null;
-                const label = document.getElementsByClassName("turn-label")[0];
-                label.classList.toggle("hide");
-                return false;
+                const result = document.getElementById("result");
+                const resultSubtext = document.getElementById("result-subtext");
+                result.textContent = `${turn.getPlayerName()} wins!`;
+                resultSubtext.textContent = "You've got some great moves.";
+                const modal = document.getElementsByClassName("end-modal")[0];
+                modal.classList.toggle("hide");
+                return stopGame();
             }
-        }
-        if (round == 9) {
-            turn = null;
-            const label = document.getElementsByClassName("turn-label")[0];
-            label.classList.toggle("hide");
-            return false;
+            if (round == 9) {
+                const result = document.getElementById("result");
+                const resultSubtext = document.getElementById("result-subtext");
+                result.textContent = `Draw!`;
+                resultSubtext.textContent = "Not making it easy. Respect.";
+                const modal = document.getElementsByClassName("end-modal")[0];
+                modal.classList.toggle("hide");
+                return stopGame();
+            }
         }
         return true;
     }
-    return { nextTurn, setTurn, getTurn, shouldContinueGame };
+    const resetGame = () => {
+        gameBoard.clearBoard();
+        turn = null;
+        round = 0;
+        const grids = document.getElementsByClassName("grid-box");
+        for (let i = 0; i < grids.length; i++) {
+            grids[i].classList.remove("taken");
+            grids[i].textContent = null;
+        }
+    }
+    return { nextTurn, setTurn, getTurn, shouldContinueGame, resetGame };
 })();
 
 const Player = (name, mark) => {
     const playerMark = mark;
     const playerName = name;
-    const getName = () => { return playerName };
+    const getPlayerName = () => { return playerName };
     const getPlayerMark = () => { return playerMark };
-    return { getName, getPlayerMark };
+    return { getPlayerName, getPlayerMark };
 }
 
 let username;
@@ -88,11 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener("submit", function(e) {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
-        console.log(data);
         player = Player(data["player.name"], data["player.mark"]);
         opponent = Player("Opponent", function() { return data["player.mark"] === "X" ? "O" : "X" }());
         const modal = document.getElementsByClassName("modal")[0];
-        modal.classList.add("hidden");
+        modal.classList.toggle("hidden");
         const turnLabel = document.getElementsByClassName("turn-label")[0];
         turnLabel.classList.toggle("hide");
         gameController.setTurn(player);
@@ -105,4 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
     }
+    const resetBtn = document.getElementById("reset");
+    resetBtn.addEventListener("click", function() {
+        gameController.resetGame();
+        const modal = document.getElementsByClassName("modal")[0];
+        modal.classList.toggle("hidden");
+        const endModal = document.getElementsByClassName("end-modal")[0];
+        endModal.classList.toggle("hide");
+    })
 }, false);
