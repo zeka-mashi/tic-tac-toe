@@ -23,22 +23,44 @@ const gameController = (() => {
         const span = document.getElementById("turn");
         span.textContent = turn.getPlayerName();
     }
-    const nextTurn = () => {
-        turn = turn == player ? opponent : player;
+    const processTurn = () => {
         setName();
         round++;
+        if (turn.getPlayerIsAi()) {
+            playForAi();
+        }
+    }
+    const nextTurn = () => {
+        turn = turn == player1 ? player2 : player1;
+        processTurn();
+    }
+    const playForAi = () => {
+        const grid = document.getElementsByClassName("grid")[0];
+        grid.classList.toggle("ai-is-playing");
+        const dim = document.getElementsByClassName("ai-playing-modal")[0];
+        dim.classList.toggle("hide");
+        let idx = [],
+            board = gameBoard.getBoard();
+        for (let i = 0; i < board.length; i++)
+            if (board[i] === null)
+                idx.push(i);
+        setTimeout(() => {
+            const random = idx[Math.floor(Math.random() * idx.length)];
+            console.log(getTurn().getPlayerMark())
+            gameBoard.add(getTurn().getPlayerMark(), random);
+            grid.classList.toggle("ai-is-playing");
+            dim.classList.toggle("hide");
+        }, 1500);
     }
     const setTurn = (player) => {
         turn = player;
-        setName();
-        round++;
+        processTurn();
     };
     const getTurn = () => { return turn };
     const checkLine = (arr) => {
         let countX = 0;
         let countO = 0;
         arr.forEach(grid => { if (grid == "X") { countX++ } else if (grid == "O") { countO++ } });
-        console.log(countX, countO)
         if (countX == 3 || countO == 3) {
             return true;
         }
@@ -94,30 +116,35 @@ const gameController = (() => {
     return { nextTurn, setTurn, getTurn, shouldContinueGame, resetGame };
 })();
 
-const Player = (name, mark) => {
+const Player = (name, mark, isAi) => {
     const playerMark = mark;
     const playerName = name;
+    const playerIsAi = isAi ? isAi : false;
     const getPlayerName = () => { return playerName };
     const getPlayerMark = () => { return playerMark };
-    return { getPlayerName, getPlayerMark };
+    const getPlayerIsAi = () => { return playerIsAi };
+    return { getPlayerName, getPlayerMark, getPlayerIsAi };
 }
 
 let username;
-let player;
-let opponent;
+let player1;
+let player2;
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById("selectionForm");
     form.addEventListener("submit", function(e) {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
-        player = Player(data["player.name"], data["player.mark"]);
-        opponent = Player("Opponent", function() { return data["player.mark"] === "X" ? "O" : "X" }());
+        player1 = Player(data["player1.name"], data["player1.mark"]);
+        player2 = Player(
+            function() { return data["player2.name"] ? data["player2.name"] : "Opponent" }(),
+            function() { return data["player1.mark"] === "X" ? "O" : "X" }(),
+            function() { return data["player2.ai"] === "on" ? true : false }());
         const modal = document.getElementsByClassName("modal")[0];
         modal.classList.toggle("hidden");
         const turnLabel = document.getElementsByClassName("turn-label")[0];
         turnLabel.classList.toggle("hide");
-        gameController.setTurn(player);
+        gameController.setTurn(player1);
     })
     const grids = document.getElementsByClassName("grid-box");
     for (let i = 0; i < grids.length; i++) {

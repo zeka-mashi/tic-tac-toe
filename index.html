@@ -50,28 +50,54 @@
                     <h2>You've been challenged to</h2>
                     <h1>Tic-Tac-Toe!</h1>
                 </div>
-                <div class="grouping">
-                    <label for="player.name">Your Name:</label>
-                    <input type="text" id="player.name" name="player.name" minlength="3" maxlength="20" required title="Enter your name!">
-                </div>
-                <div class="grouping">
-                    <label>Choose your mark:</label>
-                    <div>
-                        <input type="radio" id="player.mark.x" name="player.mark" value="X" checked>
-                        <label for="player.mark.x">X</label>
+                <div class="box-wrapper">
+                    <div class="player1-box">
+                        <p class="box-name">Player One</p>
+                        <div class="grouping">
+                            <label for="player1.name" class="player-name">Name:</label>
+                            <input type="text" id="player1.name" name="player1.name" minlength="3" maxlength="20" required title="Enter Player 1's name!">
+                        </div>
+                        <div class="grouping">
+                            <label>Choose your mark: <span style="font-size:12px;" title="Select the mark for Player One. The other mark will be used for Player Two.">[?]</span></label>
+                            <div class="marks">
+                                <div>
+                                    <input type="radio" id="player1.mark.x" name="player1.mark" value="X" checked>
+                                    <label for="player1.mark.x">X</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="player1.mark.o" name="player1.mark" value="O">
+                                    <label for="player1.mark.o">O</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <input type="radio" id="player.mark.o" name="player.mark" value="O">
-                        <label for="player.mark.o">O</label>
+                    <div class="player2-box">
+                        <p class="box-name">Player Two</p>
+                        <div class="grouping">
+                            <label for="player2.name" class="player-name">Name:</label>
+                            <input type="text" id="player2.name" name="player2.name" minlength="3" maxlength="20" title="Enter Player 2's name!">
+                        </div>
+                        <div class="grouping ai">
+                            <label class="switch">
+                                <input type="checkbox" id="player2.ai" name="player2.ai">
+                                <span class="slider"></span>
+                            </label>
+                            <label for="player2.ai">Play Against AI</label>
+                        </div>
                     </div>
                 </div>
             </form>
             <div class="submit"><input type="submit" form="selectionForm" id="submit" value="I'm Ready"></div>
         </div>
     </div>
+    <div class="ai-playing-modal hide">
+        <div class="modal-container">
+            <p>AI is playing...</p>
+        </div>
+    </div>
     <div class="end-modal hide">
         <div class="end modal-container">
-            <div><span id="result">YOU LOST????</span><br><span id="result-subtext">Better luck enxt time</span></div>
+            <div><span id="result"></span><br><span id="result-subtext"></span></div>
             <input type="button" id="reset" value="Play Another">
         </div>
     </div>
