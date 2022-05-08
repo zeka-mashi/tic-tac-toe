@@ -86,7 +86,11 @@ const gameController = (() => {
                 const result = document.getElementById("result");
                 const resultSubtext = document.getElementById("result-subtext");
                 result.textContent = `${turn.getPlayerName()} wins!`;
-                resultSubtext.textContent = "You've got some great moves.";
+                if (turn.getPlayerIsAi()) {
+                    resultSubtext.textContent = "Beat by an AI? Better luck next time.";
+                } else {
+                    resultSubtext.textContent = "You've got some great moves.";
+                }
                 const modal = document.getElementsByClassName("end-modal")[0];
                 modal.classList.toggle("hide");
                 return stopGame();
