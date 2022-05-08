@@ -55,7 +55,7 @@
                         <p class="box-name">Player One</p>
                         <div class="grouping">
                             <label for="player1.name" class="player-name">Name:</label>
-                            <input type="text" id="player1.name" name="player1.name" minlength="3" maxlength="20" required title="Enter Player 1's name!">
+                            <input type="text" id="player1.name" name="player1.name" minlength="3" maxlength="20" required title="Enter Player 1's name!" oninvalid="this.setCustomValidity('Enter Player 1\'s name!')" oninput="setCustomValidity('')">
                         </div>
                         <div class="grouping">
                             <label>Choose your mark: <span style="font-size:12px;" title="Select the mark for Player One. The other mark will be used for Player Two.">[?]</span></label>
