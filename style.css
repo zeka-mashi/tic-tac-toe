@@ -51,7 +51,9 @@ input[type="text"]:focus {
 .grid {
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    border: 1px solid black;
+    border: 2px solid black;
+    background-color: black;
+    grid-gap: 1px;
 }
 
 .ai-is-playing {
@@ -59,7 +61,7 @@ input[type="text"]:focus {
 }
 
 .grid-box {
-    border: 1px solid gray;
+    background-color: aliceblue;
     width: 125px;
     height: 125px;
     font-size: 75px;
@@ -91,8 +93,8 @@ input[type="text"]:focus {
     top: 0;
 }
 
-.ai-is-playing {
-    background-color: rgba(128, 128, 128, 0.5);
+.ai-is-playing .grid-box {
+    background-color: rgba(128, 128, 128);
 }
 
 .ai-playing-modal {

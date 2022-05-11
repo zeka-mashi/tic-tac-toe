@@ -46,7 +46,6 @@ const gameController = (() => {
                 idx.push(i);
         setTimeout(() => {
             const random = idx[Math.floor(Math.random() * idx.length)];
-            console.log(getTurn().getPlayerMark())
             gameBoard.add(getTurn().getPlayerMark(), random);
             grid.classList.toggle("ai-is-playing");
             dim.classList.toggle("hide");
